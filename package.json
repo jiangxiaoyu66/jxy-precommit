@@ -1,0 +1,23 @@
+{
+  "name": "jxy-precommit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiangxiaoyu66/jxy-precommit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiangxiaoyu66/jxy-precommit/issues"
+  },
+  "homepage": "https://github.com/jiangxiaoyu66/jxy-precommit#readme",
+  "dependencies": {
+   
+  }
+}
