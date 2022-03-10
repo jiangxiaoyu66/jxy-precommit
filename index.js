@@ -4,12 +4,8 @@ const colorText = require('./components/colorText')
 const httpString = require('./components/httpString')
 
 
-console.log(cdnLinkCheck,
-  seadEmail,
-  colorText,
-  httpString);
 
-exports= {
+module.exports = {
   cdnLinkCheck,
   seadEmail,
   colorText,

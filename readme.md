@@ -16,3 +16,20 @@ jxy-precommit
 └─ readme.md
 
 ```
+
+# 使用方法
+```
+npm i jxy-precommit -D
+```
+
+在package.json中添加script脚本
+```js
+"init": "node ./node_modules/jxy-precommit/init"
+```
+执行
+```
+npm run init
+```
+控制台打印出结果：*pre-commit钩子初始化成功！！*
+
+则表示安装成功
