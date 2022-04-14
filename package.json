@@ -1,6 +1,6 @@
 {
   "name": "jxy-precommit",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,7 @@
   "homepage": "https://github.com/jiangxiaoyu66/jxy-precommit#readme",
   "dependencies": {
   },
-  "bin": "./bin/pre-commit"
+  "bin": {
+   "jxyCommitInit": "./bin/init.js"
+  }
 }
