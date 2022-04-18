@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-03-09 11:40:34
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-14 16:51:42
+ * @LastEditTime: 2022-04-15 15:30:53
  * @FilePath: /jxy-precommit/readme.md
  * @Description: 
  * 
@@ -28,21 +28,23 @@ jxy-precommit
 
 # 使用方法
 ```
+yarn add jxy-precommit -D
+```
+
+
+```
 npm i jxy-precommit -D
 ```
 
 在package.json中添加script脚本
 ```js
-npm set-script init "jxyCommitInit"
+npm set-script init "jxyCommitInit" && npm run init
 ```
 
 ```js
 "init": "jxyCommitInit"
 ```
-执行
-```
-npm run init
-```
+
 控制台打印出结果：*pre-commit钩子初始化成功！！*
 
 则表示安装成功
