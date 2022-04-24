@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-03-09 11:40:34
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-15 15:30:53
+ * @LastEditTime: 2022-04-24 15:36:07
  * @FilePath: /jxy-precommit/readme.md
  * @Description: 
  * 
@@ -48,3 +48,12 @@ npm set-script init "jxyCommitInit" && npm run init
 控制台打印出结果：*pre-commit钩子初始化成功！！*
 
 则表示安装成功
+
+
+
+# 注意
+如果输入的文件目录中检测到.gitignore文件，则在检测cdn是否合法时，会自动忽略.gitignore中配置的文件
+如果输入的文件目录中没有检测到.gitignore文件，则默认回检查改目录下的所有文件
+
+
+默认不检查这几个文件：'package.json', 'yarn.lock', 'package-lock.json','yarn-error.log'

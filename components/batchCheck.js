@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-18 20:04:24
+ * @LastEditTime: 2022-04-24 16:28:19
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -25,42 +25,89 @@ function  batchCheck() {
     output: process.stdout
   })
   readline.question(`你想要检索的文件夹目录?（直接从左侧列表中拖拽文件夹过来就可以哦～）：\n`, location => {
+    let dirLocation = location
     if(/\'*\'/.test(location)) {
       location.trim()
-      const dirLocation =location.slice(1,-1)
+      dirLocation = location.slice(1,-1)
+    }
+
+    /**获取忽略的文件目录 */
+    const gitignorelocation = path.join(dirLocation,'.gitignore')
+
+    if(fs.existsSync(gitignorelocation)) {
+      const fileIgnoreList = getFileIgnoreList(gitignorelocation)
+      readDir(dirLocation, fileIgnoreList)
+    }
+    else {
       readDir(dirLocation)
     }
 
+  
+    readline.close()
 
-    // readline.question(`你想要避开哪些文件?(直接从左侧列表中拖拽文件夹过来就可以哦～)：\n`, location => {
-    //   console.log(`避开 ${location}!`)
-    //   dirLocation = location
-    //   readline.close()
-      
 
-    // })
   })
+
+
+  /**
+   *  获取忽略的文件目录
+   *  */
+  function getFileIgnoreList(gitInnoreLocation) {
+    let gitInnoreFileList = ['package.json', 'yarn.lock', 'package-lock.json','yarn-error.log'] // 默认的检测cdn时要忽略的文件
+    if(gitInnoreLocation) {
+      const gitInnoreFileContent = fs.readFileSync(gitInnoreLocation,'utf8')
+      gitInnoreFileContent.split('\n').forEach((item) => {
+        if(!item.startsWith('#')) {
+          gitInnoreFileList.push(item.trim())
+        }
+      })
+  
+      return gitInnoreFileList
+    }
+    else {
+      return gitInnoreFileList
+    }
+   
+  }
 
   /**
    * 读取{entry}目录下的所有文件内容并测试是否有违规路径
    * @param {*} entry 
    */
-  const readDir = (entry)=>{
-    const dirInfo = fs.readdirSync(entry);
-    dirInfo.forEach(item => {
-      if(!item.includes('node_modules') && !item.includes('.git')) {  // 不检索node_modules和.git文件夹
-        const location = path.join(entry,item)
+  const readDir = (entry, fileIgnoreList)=>{
+    const stat = fs.lstatSync(entry);
+    let rootLocationIsFile
+    
+    if(stat.isFile(entry)) { // 如果是文件
+      rootLocationIsFile= true
+    }
+    else { // 如果是文件夹
+      rootLocationIsFile= false
+    }
+
+    const  dirInfo = rootLocationIsFile ? [entry] : fs.readdirSync(entry)
+    dirInfo.forEach(fileName => {
+      if(fileIgnoreList && !fileIgnoreList.some((item) => item.includes(fileName))) {
+        const location = path.join(entry,fileName)
         const info = fs.statSync(location)
         if(info.isDirectory()){
-            // console.log(`dir: ${location}`)
-            readDir(location)
+            readDir(location, fileIgnoreList)
         }else{
             const data = fs.readFileSync(location,'utf8')
             testContent(location, data)
         }
       }
+
+      else if(!fileIgnoreList && rootLocationIsFile) { // 如果根目录传过来的是个文件，不是文件夹
+        const data = fs.readFileSync(entry,'utf8')
+        testContent(entry, data)
+      }
+     
     })
   }
+
+
+
 
 
 
@@ -105,5 +152,7 @@ function  batchCheck() {
   
 
 }
+
+
 
 module.exports = batchCheck
