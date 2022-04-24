@@ -48,6 +48,19 @@ exists(precommitDirectory, (ifexists) => {
     else if(data.includes(nodeCode)) {
       console.log(red('您已经初始化过一次啦！'));
     }
+    else if(data.startsWith('#!/bin/sh')) {
+      // 在钩子目录中插入对应的钩子脚本
+      exec('touch pre-commit',({cwd: directory}),(err, stdout, stderr) => {
+        /**
+         * tips：
+            写入文件不存在，会自动创建文件并写入内容。
+            写入文件存在，会先清空原文件内容，重新写入新的内容。
+        */
+        var stream = createWriteStream(`${directory}/pre-commit`);
+        stream.write(nodeEnvDeclare+'\n'+nodeCode)
+        console.log(green('pre-commit钩子初始化成功！！'))
+      });
+    }
     else {
       writeFileSync(precommitDirectory, data+'\n'+nodeCode, 'utf8')
     }
