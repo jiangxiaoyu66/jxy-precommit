@@ -60,7 +60,14 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
 如果输入的文件目录中检测到.gitignore文件，则在检测cdn是否合法时，会**自动忽略.gitignore中配置**的文件
 如果输入的文件目录中没有检测到.gitignore文件，则默认会检查改目录下的**所有文件**
 
-**默认不检查这几个文件**：'package.json', 'yarn.lock', 'package-lock.json','yarn-error.log'
+**默认不检查这几个文件**：
+'package.json',
+'yarn.lock',
+'package-lock.json',
+'yarn-error.log',
+'.gitignore',
+'.npmrc',
+'Dockerfile',
 
 
 ### 2、在提交之前自动检查所有暂存区的文件，如果有问题则会中断提交，并报出存在问题的文件和对应的链接。知道修复，则可以正常提交

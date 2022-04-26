@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-24 16:28:19
+ * @LastEditTime: 2022-04-26 12:00:26
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -53,7 +53,15 @@ function  batchCheck() {
    *  获取忽略的文件目录
    *  */
   function getFileIgnoreList(gitInnoreLocation) {
-    let gitInnoreFileList = ['package.json', 'yarn.lock', 'package-lock.json','yarn-error.log'] // 默认的检测cdn时要忽略的文件
+    let gitInnoreFileList = [  // 默认的检测cdn时要忽略的文件
+      'package.json',
+      'yarn.lock',
+      'package-lock.json',
+      'yarn-error.log',
+      '.gitignore',
+      '.npmrc',
+      'Dockerfile',
+      ] 
     if(gitInnoreLocation) {
       const gitInnoreFileContent = fs.readFileSync(gitInnoreLocation,'utf8')
       gitInnoreFileContent.split('\n').forEach((item) => {
