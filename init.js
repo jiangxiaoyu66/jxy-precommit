@@ -28,7 +28,7 @@ const precommitDirectory = directory+'/pre-commit'
 // 要写入的代码块
 const nodeCode = `// 检测cdn是否合规的相关脚本
 console.log('${green('pre-commit钩子已启动！！')}')
-const {cdnLinkCheck} = require('jxy-precommit')
+const {cdnLinkCheck} = require('@wosai/cdncheck')
 
 cdnLinkCheck()
 `

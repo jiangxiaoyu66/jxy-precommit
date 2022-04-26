@@ -1,10 +1,11 @@
 {
-  "name": "jxy-precommit",
-  "version": "1.2.3",
+  "name": "@wosai/cdncheck",
+  "version": "1.2.5",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cdnCheckInit": "cdnCheckInit"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,9 @@
     "url": "https://github.com/jiangxiaoyu66/jxy-precommit/issues"
   },
   "homepage": "https://github.com/jiangxiaoyu66/jxy-precommit#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "bin": {
-   "jxyCommitInit": "./bin/init.js",
-   "checkCdn": "./bin/checkCdn.js"
+    "cdnCheckInit": "./bin/init.js",
+    "checkCdn": "./bin/checkCdn.js"
   }
 }
