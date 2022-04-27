@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-26 12:00:26
+ * @LastEditTime: 2022-04-26 15:55:41
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -61,6 +61,8 @@ function  batchCheck() {
       '.gitignore',
       '.npmrc',
       'Dockerfile',
+      'README.md',
+      'readme.md',
       ] 
     if(gitInnoreLocation) {
       const gitInnoreFileContent = fs.readFileSync(gitInnoreLocation,'utf8')
@@ -131,11 +133,16 @@ function  batchCheck() {
       const errorUrlArr = []  // 该文件下的所有违法路径
 
       contextArr.forEach((item) => {
-        const assetsUrls = httpString(item)
-        const assetsUrl = assetsUrls?assetsUrls[0]:''  // 当前检测文件下，第一个检测到的字符串
-    
-        if(assetsUrl && (!assetsUrl.includes('wosai') && !assetsUrl.includes('shouqianba') )) {
-          errorUrlArr.push(assetsUrl)
+        if(!item.trim().startsWith('// ')) {
+          const assetsUrls = httpString(item)
+
+          const assetsUrl = assetsUrls?assetsUrls[0]:''  // 当前检测文件下，第一个检测到的字符串
+          if( assetsUrl 
+              && (!assetsUrl.includes('wosai') 
+              && !assetsUrl.includes('shouqianba') 
+          )) {
+            errorUrlArr.push(assetsUrl)
+          }
         }
       })
 
