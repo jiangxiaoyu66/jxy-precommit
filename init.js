@@ -88,10 +88,8 @@ exists(precommitDirectory, (ifexists) => {
 
 
 
-
-
-  
-  
+// 在项目的README.md文件中添加新说明
+require('./components/updateReadme')
 
 
 

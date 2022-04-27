@@ -22,7 +22,10 @@ jxy-precommit
 
 ## 一、安装
 `yarn add @wosai/cdncheck -D`
-或者`npm i @wosai/cdncheck -D`
+
+或者
+
+`npm i @wosai/cdncheck -D`
 
 ## 二、初始化
 在package.json中添加script脚本
@@ -40,7 +43,7 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
   "checkCdn": "checkCdn"
 ```
 
-然后执行：npm run cdnCheckInit
+然后执行：`npm run cdnCheckInit`
 
 
 
@@ -68,6 +71,7 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
 '.gitignore',
 '.npmrc',
 'Dockerfile',
+'README.md',
 
 
 ### 2、在提交之前自动检查所有暂存区的文件，如果有问题则会中断提交，并报出存在问题的文件和对应的链接。知道修复，则可以正常提交
@@ -75,4 +79,18 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
 **注意**：
 关于检测出来的链接依旧想提交的情况
 在commit后加上`--no-verify`进行忽略就可
+
+
+
+## 注意
+记得更新Readme.md，添加如下描述，供后面开发者使用：
+> ## 启动cdn自动检测
+> `npm run cdnCheckInit`
+
+
+
+
+# 触发cdncheck，检测项目中是否有使用到非内部oss管理的静态资源链接
+触发方式：
+执行 'npm run cdnCheckInit' (执行一次即可，后面该项目下所有commit操作之前都会检查提交代码中的链接是否合规)
 
