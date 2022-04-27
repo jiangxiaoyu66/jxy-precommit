@@ -34,8 +34,11 @@ function cdnLinkCheck() {
       if(item && item.startsWith('+') && !item.startsWith('+++') && !item.startsWith('+//') ) {
         const assetsUrls = httpString(item)
         const assetsUrl = assetsUrls?assetsUrls[0]:''  // 当前检测文件下，第一个检测到的字符串
-    
-        if(assetsUrl && (!assetsUrl.includes('wosai') && !assetsUrl.includes('shouqianba') )) {
+        if(assetsUrl && 
+          (!assetsUrl.includes('wosai') 
+          && !assetsUrl.includes('shouqianba') 
+          && !assetsUrl.includes('oss-cn-hangzhou.aliyuncs.com') 
+        )) {
           console.error(`${colorText.red('Error:')}  
 ${colorText.green(fileName)} ${colorText.blue(assetsUrl)} ${colorText.red('引入三方资源属于违法行为！')}`)
           process.exit(1)
