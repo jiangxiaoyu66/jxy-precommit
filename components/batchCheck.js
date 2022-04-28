@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-26 15:55:41
+ * @LastEditTime: 2022-04-28 10:02:12
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -80,6 +80,12 @@ function  batchCheck() {
    
   }
 
+  const ignoreFileTypes = [
+    /.*\.md/,
+    /.*\.png/,
+    /.*\.svg/,
+  ]
+
   /**
    * 读取{entry}目录下的所有文件内容并测试是否有违规路径
    * @param {*} entry 
@@ -97,7 +103,10 @@ function  batchCheck() {
 
     const  dirInfo = rootLocationIsFile ? [entry] : fs.readdirSync(entry)
     dirInfo.forEach(fileName => {
-      if(fileIgnoreList && !fileIgnoreList.some((item) => item.includes(fileName))) {
+      if(fileIgnoreList &&
+         !(fileIgnoreList.some((item) => item.includes(fileName))) &&
+         !(ignoreFileTypes.some((item) => item.test(path.basename(fileName)))) // 不检测特定的文件格式
+        ) {
         const location = path.join(entry,fileName)
         const info = fs.statSync(location)
         if(info.isDirectory()){
@@ -108,7 +117,10 @@ function  batchCheck() {
         }
       }
 
-      else if(!fileIgnoreList && rootLocationIsFile) { // 如果根目录传过来的是个文件，不是文件夹
+      else if(!fileIgnoreList &&
+         rootLocationIsFile &&  // 如果根目录传过来的是个文件，不是文件夹
+         !(ignoreFileTypes.some((item) => item.test(path.basename(fileName)))) // 不检测特定的文件格式
+      ) { 
         const data = fs.readFileSync(entry,'utf8')
         testContent(entry, data)
       }
@@ -167,7 +179,6 @@ function  batchCheck() {
   
 
 }
-
 
 
 module.exports = batchCheck
