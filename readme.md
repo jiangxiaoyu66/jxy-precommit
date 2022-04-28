@@ -73,6 +73,8 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
 'Dockerfile',
 'README.md',
 
+**默认不检查这以下格式的文件**：md,txt文件;png，svg文件
+
 
 ### 2、在提交之前自动检查所有暂存区的文件，如果有问题则会中断提交，并报出存在问题的文件和对应的链接。知道修复，则可以正常提交
 
@@ -87,6 +89,12 @@ npm set-script cdnCheckInit "cdnCheckInit" && npm run cdnCheckInit
 > ## 启动cdn自动检测
 > `npm run cdnCheckInit`
 
+
+
+
+# 触发cdncheck，检测项目中是否有使用到非内部oss管理的静态资源链接
+触发方式：
+执行 'npm run cdnCheckInit' (执行一次即可，后面该项目下所有commit操作之前都会检查提交代码中的链接是否合规)
 
 
 

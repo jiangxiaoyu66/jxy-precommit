@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-28 10:02:12
+ * @LastEditTime: 2022-04-28 10:48:21
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -82,6 +82,7 @@ function  batchCheck() {
 
   const ignoreFileTypes = [
     /.*\.md/,
+    /.*\.txt/,
     /.*\.png/,
     /.*\.svg/,
   ]
