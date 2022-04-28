@@ -1,6 +1,7 @@
 const {spawn, exec} = require('child_process')
 const {writeFile,createWriteStream,readFile,readFileSync, exists, writeFileSync} = require('fs')
 const {green,red} = require('./components/colorText')
+const  activeGitHooks= require('./components/activeGitHooks')
 
 
 // 获得hooks的目录
@@ -44,6 +45,7 @@ exists(precommitDirectory, (ifexists) => {
 
     if(data==='') {
       writeFileSync(precommitDirectory, nodeEnvDeclare+'\n'+nodeCode, 'utf8')
+      activeGitHooks()
     }
     else if(data.includes(nodeCode)) {
       console.log(red('您已经初始化过一次啦！'));
@@ -59,10 +61,13 @@ exists(precommitDirectory, (ifexists) => {
         var stream = createWriteStream(`${directory}/pre-commit`);
         stream.write(nodeEnvDeclare+'\n'+nodeCode)
         console.log(green('pre-commit钩子初始化成功！！'))
+        activeGitHooks()
+
       });
     }
     else {
       writeFileSync(precommitDirectory, data+'\n'+nodeCode, 'utf8')
+      activeGitHooks()
     }
 
   }
@@ -79,7 +84,9 @@ exists(precommitDirectory, (ifexists) => {
       */
       var stream = createWriteStream(`${directory}/pre-commit`);
       stream.write(nodeEnvDeclare+'\n'+nodeCode)
-    console.log(green('pre-commit钩子初始化成功！！'))
+      console.log(green('pre-commit钩子初始化成功！！'))
+      activeGitHooks()
+      
     });
 
   }
