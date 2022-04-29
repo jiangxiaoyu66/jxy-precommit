@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-28 10:48:21
+ * @LastEditTime: 2022-04-28 18:26:51
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -39,7 +39,7 @@ function  batchCheck() {
       readDir(dirLocation, fileIgnoreList)
     }
     else {
-      readDir(dirLocation)
+      readDir(dirLocation, [])
     }
 
   
@@ -105,7 +105,7 @@ function  batchCheck() {
     const  dirInfo = rootLocationIsFile ? [entry] : fs.readdirSync(entry)
     dirInfo.forEach(fileName => {
       if(fileIgnoreList &&
-         !(fileIgnoreList.some((item) => item.includes(fileName))) &&
+         !(fileIgnoreList.some((item) => item.endsWith(fileName))) &&
          !(ignoreFileTypes.some((item) => item.test(path.basename(fileName)))) // 不检测特定的文件格式
         ) {
         const location = path.join(entry,fileName)
