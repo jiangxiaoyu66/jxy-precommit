@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-28 18:26:51
+ * @LastEditTime: 2022-04-29 10:15:33
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -24,7 +24,7 @@ function  batchCheck() {
     input: process.stdin,
     output: process.stdout
   })
-  readline.question(`你想要检索的文件夹目录?（直接从左侧列表中拖拽文件夹过来就可以哦～）：\n`, location => {
+  readline.question(`你想要检索的文件夹/文件目录?（直接从左侧列表中拖拽文件夹/文件过来就可以哦～）：\n`, location => {
     let dirLocation = location
     if(/\'*\'/.test(location)) {
       location.trim()
