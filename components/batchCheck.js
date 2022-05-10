@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-04-29 10:15:33
+ * @LastEditTime: 2022-05-10 20:05:24
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
@@ -16,6 +16,7 @@ function  batchCheck() {
   const colorText = require('./colorText')
 
 
+  let rootPath
   /**
    *  获取参数，知道要检索的文件夹目录，要避开哪些文件
    */
@@ -26,9 +27,12 @@ function  batchCheck() {
   })
   readline.question(`你想要检索的文件夹/文件目录?（直接从左侧列表中拖拽文件夹/文件过来就可以哦～）：\n`, location => {
     let dirLocation = location
+    rootPath = location
+
     if(/\'*\'/.test(location)) {
       location.trim()
       dirLocation = location.slice(1,-1)
+      rootPath = location.slice(1,-1)
     }
 
     /**获取忽略的文件目录 */
@@ -72,10 +76,10 @@ function  batchCheck() {
         }
       })
   
-      return gitInnoreFileList
+      return gitInnoreFileList.map((item) => path.join(rootPath, item))
     }
     else {
-      return gitInnoreFileList
+      return gitInnoreFileList.map((item) => path.join(rootPath, item))
     }
    
   }
@@ -105,7 +109,7 @@ function  batchCheck() {
     const  dirInfo = rootLocationIsFile ? [entry] : fs.readdirSync(entry)
     dirInfo.forEach(fileName => {
       if(fileIgnoreList &&
-         !(fileIgnoreList.some((item) => item.endsWith(fileName))) &&
+         !(fileIgnoreList.some((item) => item.includes(entry))) &&
          !(ignoreFileTypes.some((item) => item.test(path.basename(fileName)))) // 不检测特定的文件格式
         ) {
         const location = path.join(entry,fileName)
@@ -120,12 +124,13 @@ function  batchCheck() {
 
       else if(!fileIgnoreList &&
          rootLocationIsFile &&  // 如果根目录传过来的是个文件，不是文件夹
+         !(fileIgnoreList.some((item) => item.includes(entry))) &&
          !(ignoreFileTypes.some((item) => item.test(path.basename(fileName)))) // 不检测特定的文件格式
       ) { 
         const data = fs.readFileSync(entry,'utf8')
         testContent(entry, data)
       }
-     
+
     })
   }
 
@@ -181,5 +186,7 @@ function  batchCheck() {
 
 }
 
+
+batchCheck()
 
 module.exports = batchCheck
