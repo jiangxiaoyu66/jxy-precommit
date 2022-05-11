@@ -2,7 +2,7 @@
  * @Author: 蒋晓雨
  * @Date: 2022-04-18 17:12:53
  * @LastEditors: 蒋晓雨
- * @LastEditTime: 2022-05-11 16:00:06
+ * @LastEditTime: 2022-05-11 16:03:52
  * @FilePath: /jxy-precommit/components/batchCheck.js
  * @Description: 
  * 
